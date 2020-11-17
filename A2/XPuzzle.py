@@ -12,6 +12,11 @@ class XPuzzle:
         self.emptyTilePosition[0] = tempEmptyTilePosition[0][0]
         self.emptyTilePosition[1] = tempEmptyTilePosition[1][0]
     
+    ###### Helper methods ######
+    def isEmptyTileAtCorner(self):
+        #check left-top corner, right-top corner, left-bottom corner and right-bottom corner
+        return np.array_equal(self.emptyTilePosition,[0,0]) or np.array_equal(self.emptyTilePosition,[0,len(self.initialState[0])-1]) or np.array_equal(self.emptyTilePosition,[len(self.initialState)-1,0]) or np.array_equal(self.emptyTilePosition,[len(self.initialState)-1,len(self.initialState[0])-1])
+
     ###### Operators ######
     def slideDown(self):
         #the empty tile is at the bottom of the matrix
@@ -53,10 +58,14 @@ class XPuzzle:
         
         return newState
 
+    # def wrappingSlide(self):
 
 
 
-initStt = np.array([[0,1,3,7],[5,4,2,6]])
-x = XPuzzle(initStt)    
-print(x.slideLeft())
+
+initStt = np.array([[0,7,1,6],[3,4,2,5]])
+x = XPuzzle(initStt)  
+print([len(x.initialState)-1,len(x.initialState[0])-1])
+print(x.emptyTilePosition)
+print(x.isEmptyTileAtCorner())
 # print(x.initialState)
