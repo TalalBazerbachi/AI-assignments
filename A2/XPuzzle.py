@@ -23,11 +23,20 @@ class XPuzzle:
 
         return newState
 
-    
+    def slideUp(self):
+        #the empty tile is at the top of the matrix
+        if(0 == self.emptyTilePosition[0]):
+            return None
+        
+        newState = np.copy(self.initialState)
+        newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]] = newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
+        
+        return newState
 
 
-initStt = np.array([[0,2,1,3],[7,4,6,5]])
+
+
+initStt = np.array([[7,2,0,3],[6,4,1,5]])
 x = XPuzzle(initStt)    
-print(x.slideDown() )
-print(x.initialState)
+print(x.slideUp())
 # print(x.initialState)
