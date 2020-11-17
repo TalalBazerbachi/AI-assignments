@@ -32,11 +32,31 @@ class XPuzzle:
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]] = newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
         
         return newState
+    
+    def slideRight(self):
+        #the empty tile is at the right edge of the matrix
+        if((len(self.initialState[0])-1) == self.emptyTilePosition[1]):
+            return None
+
+        newState = np.copy(self.initialState)
+        newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]+1] = newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]+1], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
+        
+        return newState
+
+    def slideLeft(self):
+        #the empty tile is at the left edge of the matrix
+        if(0 == self.emptyTilePosition[1]):
+            return None
+        
+        newState = np.copy(self.initialState)
+        newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]-1] = newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]-1], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
+        
+        return newState
 
 
 
 
-initStt = np.array([[7,2,0,3],[6,4,1,5]])
+initStt = np.array([[0,1,3,7],[5,4,2,6]])
 x = XPuzzle(initStt)    
-print(x.slideUp())
+print(x.slideLeft())
 # print(x.initialState)
