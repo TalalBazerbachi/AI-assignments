@@ -59,6 +59,7 @@ class XPuzzle:
         return newState
 
     def wrappingSlide(self):
+        #check if the empty tile is at one of the corners
         if(not self.isEmptyTileAtCorner()):
             return None
         
@@ -71,6 +72,7 @@ class XPuzzle:
         return newState
     
     def diagonalSlideInside(self):
+        #check if the empty tile is at one of the corners
         if(not self.isEmptyTileAtCorner()):
             return None
 
@@ -86,9 +88,22 @@ class XPuzzle:
 
         return newState
 
-initStt = np.array([[0,6,1,7],[5,3,4,2]])
+    def diagonalSlideOpposed(self):
+        #check if the empty tile is at one of the corners
+        if(not self.isEmptyTileAtCorner()):
+            return None
+        
+        newState = np.copy(self.initialState)
+        if(np.array_equal(self.emptyTilePosition,[0,0]) or np.array_equal(self.emptyTilePosition,[len(self.initialState)-1,len(self.initialState[0])-1])):#top-left and bottom-right corners
+            newState[0,0], newState[len(newState)-1,len(newState[0])-1] = newState[len(newState)-1,len(newState[0])-1], newState[0,0]
+        else:#top-right and bottom-left corners
+            newState[0,len(newState[0])-1], newState[len(newState)-1,0] = newState[len(newState)-1,0], newState[0,len(newState[0])-1]
+
+        return newState
+
+initStt = np.array([[4,1,3,2],[0,6,7,5]])
 x = XPuzzle(initStt)  
 
 print(x.isEmptyTileAtCorner())
-print(x.diagonalSlideInside())
+print(x.diagonalSlideOpposed())
 # print(x.initialState)
