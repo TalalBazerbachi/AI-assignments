@@ -2,8 +2,6 @@ import numpy as np
 
 class XPuzzle:
     initialState = np.array([])
-    # GOALSTATE1 = np.array([[1,2,3,4],[5,6,7,0]])
-    # GOALSTATE2 = np.array([[1,3,5,7],[2,4,6,0]])
     emptyTilePosition = [0,0]
 
     def __init__(self, initState):
@@ -101,9 +99,21 @@ class XPuzzle:
 
         return newState
 
-initStt = np.array([[4,1,3,2],[0,6,7,5]])
-x = XPuzzle(initStt)  
+#check if a state is the goal state
+def isGOAL1(state):
+    GOALSTATE1 = np.array([[1,2,3,4],[5,6,7,0]])
+    return np.array_equal(state,GOALSTATE1)
 
-print(x.isEmptyTileAtCorner())
-print(x.diagonalSlideOpposed())
+def isGOAL2(state):
+    GOALSTATE2 = np.array([[1,3,5,7],[2,4,6,0]])
+    return np.array_equal(state,GOALSTATE2)
+
+
+initStt = np.array([[1,2,3,4],[5,6,7,0]])
+print(isGOAL2(initStt))
+
+# x = XPuzzle(initStt)  
+
+# print(x.isEmptyTileAtCorner())
+# print(x.diagonalSlideOpposed())
 # print(x.initialState)
