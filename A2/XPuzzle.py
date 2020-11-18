@@ -58,14 +58,24 @@ class XPuzzle:
         
         return newState
 
-    # def wrappingSlide(self):
+    def wrappingSlide(self):
+        if(not self.isEmptyTileAtCorner()):
+            return None
+        
+        newState = np.copy(self.initialState)
+        if(self.emptyTilePosition[0] == 0): #top row in the matrix
+            newState[0][0], newState[0][len(newState[0])-1] = newState[0][len(newState[0])-1], newState[0][0]
+        else: #bottom row in the matrix
+            newState[len(newState)-1][0], newState[len(newState)-1][len(newState[0])-1] = newState[len(newState)-1][len(newState[0])-1], newState[len(newState)-1][0]
+        
+        return newState
 
 
 
 
-initStt = np.array([[0,7,1,6],[3,4,2,5]])
+initStt = np.array([[7,6,1,5],[2,3,0,4]])
 x = XPuzzle(initStt)  
-print([len(x.initialState)-1,len(x.initialState[0])-1])
-print(x.emptyTilePosition)
+
 print(x.isEmptyTileAtCorner())
+print(x.wrappingSlide())
 # print(x.initialState)
