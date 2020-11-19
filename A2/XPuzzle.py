@@ -10,7 +10,7 @@ class XPuzzle:
         self.emptyTilePosition = np.array([0,0])
         self.emptyTilePosition[0] = tempEmptyTilePosition[0][0]
         self.emptyTilePosition[1] = tempEmptyTilePosition[1][0]
-    
+
     ###### Helper methods ######
     def isEmptyTileAtCorner(self):
         #check left-top corner, right-top corner, left-bottom corner and right-bottom corner
@@ -27,8 +27,7 @@ class XPuzzle:
         
         # self.emptyTilePosition[0] +=1 #update emptyTilePosition
 
-        return newState
-
+        return newState, newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
     def slideUp(self):
         #the empty tile is at the top of the matrix
         if(0 == self.emptyTilePosition[0]):
@@ -40,7 +39,7 @@ class XPuzzle:
         # print(newState)
         # self.emptyTilePosition[0] -=1 #update emptyTilePosition
 
-        return newState
+        return newState, newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
     
     def slideRight(self):
         #the empty tile is at the right edge of the matrix
@@ -52,7 +51,7 @@ class XPuzzle:
         
         # self.emptyTilePosition[1] +=1 #update emptyTilePosition
 
-        return newState
+        return newState, newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
 
     def slideLeft(self):
         #the empty tile is at the left edge of the matrix
@@ -64,7 +63,7 @@ class XPuzzle:
         
         # self.emptyTilePosition[1] -=1 #update emptyTilePosition
 
-        return newState
+        return newState,newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
 
     def wrappingSlide(self):
         #check if the empty tile is at one of the corners
@@ -79,7 +78,7 @@ class XPuzzle:
         
         # self.emptyTilePosition[1] = len(newState[0])-1 if self.emptyTilePosition[1] == 0 else 0 #update emptyTilePosition
 
-        return newState
+        return newState, newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
     
     def diagonalSlideInside(self):
         #check if the empty tile is at one of the corners
@@ -99,7 +98,7 @@ class XPuzzle:
         else:#bottom-right corner
             newState[len(self.initialState)-1,len(self.initialState[0])-1], newState[len(self.initialState)-2,len(self.initialState[0])-2] = newState[len(self.initialState)-2,len(self.initialState[0])-2], newState[len(self.initialState)-1,len(self.initialState[0])-1]
             # self.emptyTilePosition = [len(self.initialState)-2,len(self.initialState[0])-2] #update emptyTilePosition
-        return newState
+        return newState, newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
 
     def diagonalSlideOpposed(self):
         #check if the empty tile is at one of the corners
@@ -114,7 +113,7 @@ class XPuzzle:
             newState[0,len(newState[0])-1], newState[len(newState)-1,0] = newState[len(newState)-1,0], newState[0,len(newState[0])-1]
             # self.emptyTilePosition = [len(newState)-1,0] if self.emptyTilePosition[0] == 0 else [0,len(newState[0])-1]
 
-        return newState
+        return newState, newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
 
 #check if a state is the goal state
 def isGOAL1(state):
@@ -125,11 +124,15 @@ def isGOAL2(state):
     GOALSTATE2 = np.array([[1,3,5,7],[2,4,6,0]])
     return np.array_equal(state,GOALSTATE2)
 
-# initStt = np.array([[3, 0, 1, 4],[2, 6 ,5, 7]])
+initStt = np.array([[4, 1, 3,5],[0, 2,7, 6]])
 # print(isGOAL2(initStt))
 
-# x = XPuzzle(initStt)  
+x = XPuzzle(initStt)
+# print(x.slideDown())  
 # print(x.slideUp())
+# print(x.slideRight())
+# print(x.wrappingSlide())
+print(x.diagonalSlideOpposed())
 # print(x.initialState)
 # print(x.emptyTilePosition)
 # print(x.diagonalSlideOpposed())

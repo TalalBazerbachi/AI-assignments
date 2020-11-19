@@ -9,6 +9,7 @@ class Node:
         self.child_node = data
         self.parent_node = data_parent
         self.heuristicCost = cost
+        self.moved_tile = 0
 
 def checkInClosedList(toCompare):
     for i in range(len(closed_list)):

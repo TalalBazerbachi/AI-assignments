@@ -14,4 +14,4 @@ def getPuzzles(filePath,dimensions):
 
     return puzzles
 
-print(getPuzzles('puzzles.txt',(2,4))[0])
+# print(getPuzzles('puzzles.txt',(2,4))[0])
