@@ -1,12 +1,13 @@
 import numpy as np
 
 class XPuzzle:
-    initialState = np.array([])
-    emptyTilePosition = [0,0]
-
+    # initialState = np.array([])
+    # emptyTilePosition = [0,0]
+    # tempEmptyTilePosition = np.array([])
     def __init__(self, initState):
         self.initialState = initState
         tempEmptyTilePosition = np.where(initState == 0)
+        self.emptyTilePosition = np.array([0,0])
         self.emptyTilePosition[0] = tempEmptyTilePosition[0][0]
         self.emptyTilePosition[1] = tempEmptyTilePosition[1][0]
     
@@ -23,6 +24,8 @@ class XPuzzle:
 
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]+1][self.emptyTilePosition[1]] = newState[self.emptyTilePosition[0]+1][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
+        
+        # self.emptyTilePosition[0] +=1 #update emptyTilePosition
 
         return newState
 
@@ -33,7 +36,10 @@ class XPuzzle:
         
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]] = newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
-        
+        # print("new State: ")
+        # print(newState)
+        # self.emptyTilePosition[0] -=1 #update emptyTilePosition
+
         return newState
     
     def slideRight(self):
@@ -44,6 +50,8 @@ class XPuzzle:
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]+1] = newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]+1], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
         
+        # self.emptyTilePosition[1] +=1 #update emptyTilePosition
+
         return newState
 
     def slideLeft(self):
@@ -54,6 +62,8 @@ class XPuzzle:
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]-1] = newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]-1], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
         
+        # self.emptyTilePosition[1] -=1 #update emptyTilePosition
+
         return newState
 
     def wrappingSlide(self):
@@ -63,10 +73,12 @@ class XPuzzle:
         
         newState = np.copy(self.initialState)
         if(self.emptyTilePosition[0] == 0): #top row in the matrix
-            newState[0][0], newState[0][len(newState[0])-1] = newState[0][len(newState[0])-1], newState[0][0]
+            newState[0][0], newState[0][len(newState[0])-1] = newState[0][len(newState[0])-1], newState[0][0]        
         else: #bottom row in the matrix
             newState[len(newState)-1][0], newState[len(newState)-1][len(newState[0])-1] = newState[len(newState)-1][len(newState[0])-1], newState[len(newState)-1][0]
         
+        # self.emptyTilePosition[1] = len(newState[0])-1 if self.emptyTilePosition[1] == 0 else 0 #update emptyTilePosition
+
         return newState
     
     def diagonalSlideInside(self):
@@ -77,13 +89,16 @@ class XPuzzle:
         newState = np.copy(self.initialState)
         if(np.array_equal(self.emptyTilePosition,[0,0])):#top-left corner
             newState[0,0], newState[1,1] = newState[1,1], newState[0,0]
+            # self.emptyTilePosition = [1,1] #update emptyTilePosition
         elif(np.array_equal(self.emptyTilePosition,[0,len(self.initialState[0])-1])):#top-right corner
             newState[0,len(self.initialState[0])-1], newState[1,len(self.initialState[0])-2] = newState[1,len(self.initialState[0])-2], newState[0,len(self.initialState[0])-1]
+            # self.emptyTilePosition = [1,len(self.initialState[0])-2] #update emptyTilePosition
         elif(np.array_equal(self.emptyTilePosition,[len(self.initialState)-1,0])):#bottom-left corner
             newState[len(self.initialState)-1,0], newState[len(self.initialState)-2,1] = newState[len(self.initialState)-2,1], newState[len(self.initialState)-1,0]
+            # self.emptyTilePosition = [len(self.initialState)-2,1] #update emptyTilePosition
         else:#bottom-right corner
             newState[len(self.initialState)-1,len(self.initialState[0])-1], newState[len(self.initialState)-2,len(self.initialState[0])-2] = newState[len(self.initialState)-2,len(self.initialState[0])-2], newState[len(self.initialState)-1,len(self.initialState[0])-1]
-
+            # self.emptyTilePosition = [len(self.initialState)-2,len(self.initialState[0])-2] #update emptyTilePosition
         return newState
 
     def diagonalSlideOpposed(self):
@@ -94,8 +109,10 @@ class XPuzzle:
         newState = np.copy(self.initialState)
         if(np.array_equal(self.emptyTilePosition,[0,0]) or np.array_equal(self.emptyTilePosition,[len(self.initialState)-1,len(self.initialState[0])-1])):#top-left and bottom-right corners
             newState[0,0], newState[len(newState)-1,len(newState[0])-1] = newState[len(newState)-1,len(newState[0])-1], newState[0,0]
+            # self.emptyTilePosition = [len(newState)-1,len(newState[0])-1] if self.emptyTilePosition[0] == 0 else [0,0] #update emptyTilePosition
         else:#top-right and bottom-left corners
             newState[0,len(newState[0])-1], newState[len(newState)-1,0] = newState[len(newState)-1,0], newState[0,len(newState[0])-1]
+            # self.emptyTilePosition = [len(newState)-1,0] if self.emptyTilePosition[0] == 0 else [0,len(newState[0])-1]
 
         return newState
 
@@ -108,12 +125,14 @@ def isGOAL2(state):
     GOALSTATE2 = np.array([[1,3,5,7],[2,4,6,0]])
     return np.array_equal(state,GOALSTATE2)
 
-
-initStt = np.array([[1,2,3,4],[5,6,7,0]])
-print(isGOAL2(initStt))
+# initStt = np.array([[3, 0, 1, 4],[2, 6 ,5, 7]])
+# print(isGOAL2(initStt))
 
 # x = XPuzzle(initStt)  
-
-# print(x.isEmptyTileAtCorner())
+# print(x.slideUp())
+# print(x.initialState)
+# print(x.emptyTilePosition)
 # print(x.diagonalSlideOpposed())
+# print(x.emptyTilePosition)
+
 # print(x.initialState)
