@@ -20,7 +20,7 @@ class XPuzzle:
     def slideDown(self):
         #the empty tile is at the bottom of the matrix
         if((len(self.initialState)-1) == self.emptyTilePosition[0]):
-            return None
+            return None, None
 
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]+1][self.emptyTilePosition[1]] = newState[self.emptyTilePosition[0]+1][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
@@ -31,7 +31,7 @@ class XPuzzle:
     def slideUp(self):
         #the empty tile is at the top of the matrix
         if(0 == self.emptyTilePosition[0]):
-            return None
+            return None, None
         
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]] = newState[self.emptyTilePosition[0]-1][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
@@ -44,7 +44,7 @@ class XPuzzle:
     def slideRight(self):
         #the empty tile is at the right edge of the matrix
         if((len(self.initialState[0])-1) == self.emptyTilePosition[1]):
-            return None
+            return None, None
 
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]+1] = newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]+1], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
@@ -56,7 +56,7 @@ class XPuzzle:
     def slideLeft(self):
         #the empty tile is at the left edge of the matrix
         if(0 == self.emptyTilePosition[1]):
-            return None
+            return None, None
         
         newState = np.copy(self.initialState)
         newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]-1] = newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]-1], newState[self.emptyTilePosition[0]][self.emptyTilePosition[1]]
@@ -68,7 +68,7 @@ class XPuzzle:
     def wrappingSlide(self):
         #check if the empty tile is at one of the corners
         if(not self.isEmptyTileAtCorner()):
-            return None
+            return None, None
         
         newState = np.copy(self.initialState)
         if(self.emptyTilePosition[0] == 0): #top row in the matrix
@@ -83,7 +83,7 @@ class XPuzzle:
     def diagonalSlideInside(self):
         #check if the empty tile is at one of the corners
         if(not self.isEmptyTileAtCorner()):
-            return None
+            return None, None
 
         newState = np.copy(self.initialState)
         if(np.array_equal(self.emptyTilePosition,[0,0])):#top-left corner
@@ -103,7 +103,7 @@ class XPuzzle:
     def diagonalSlideOpposed(self):
         #check if the empty tile is at one of the corners
         if(not self.isEmptyTileAtCorner()):
-            return None
+            return None, None
         
         newState = np.copy(self.initialState)
         if(np.array_equal(self.emptyTilePosition,[0,0]) or np.array_equal(self.emptyTilePosition,[len(self.initialState)-1,len(self.initialState[0])-1])):#top-left and bottom-right corners
@@ -132,7 +132,10 @@ x = XPuzzle(initStt)
 # print(x.slideUp())
 # print(x.slideRight())
 # print(x.wrappingSlide())
-print(x.diagonalSlideOpposed())
+matrix, movedTile = x.slideUp()
+matrix, movedTile = x.diagonalSlideInside()
+print(matrix)
+print(movedTile)
 # print(x.initialState)
 # print(x.emptyTilePosition)
 # print(x.diagonalSlideOpposed())
