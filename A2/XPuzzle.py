@@ -100,17 +100,17 @@ class XPuzzle:
         return newState
 
 #check if a state is the goal state
-def isGOAL1(state):
-    GOALSTATE1 = np.array([[1,2,3,4],[5,6,7,0]])
-    return np.array_equal(state,GOALSTATE1)
+    def isGOAL1(self,state):
+        GOALSTATE1 = np.array([[1,2,3,4],[5,6,7,0]])
+        return np.array_equal(state,GOALSTATE1)
 
-def isGOAL2(state):
-    GOALSTATE2 = np.array([[1,3,5,7],[2,4,6,0]])
-    return np.array_equal(state,GOALSTATE2)
+    def isGOAL2(self, state):
+        GOALSTATE2 = np.array([[1,3,5,7],[2,4,6,0]])
+        return np.array_equal(state,GOALSTATE2)
 
 
 initStt = np.array([[1,2,3,4],[5,6,7,0]])
-print(isGOAL2(initStt))
+# print(isGOAL2(initStt))
 
 # x = XPuzzle(initStt)  
 
