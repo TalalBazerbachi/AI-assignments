@@ -1,0 +1,14 @@
+1. average & total length of the solution and search paths
+Total length of solution path = 998
+Average length of solution path = 19.96
+Total length of search path = 2875
+Average length of search path = 57.50
+2. average & total number of no solution
+Total number of 'No Solution' = 0
+Average number of 'No Solution' = 00
+3. average & total cost and execution time
+Total execution time = 7.29s
+Average execution time = 0.15s
+4. optimality of the solution path
+Total solution cost = 1315
+Average solution cost = 26.30

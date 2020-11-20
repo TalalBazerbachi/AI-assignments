@@ -125,13 +125,13 @@ def isGOAL2(state):
     return np.array_equal(state,GOALSTATE2)
 
 # initStt = np.array([[4, 1, 3,5],[0, 2,7, 6]])
-# # print(isGOAL2(initStt))
+# print(isGOAL2(initStt))
 
 # x = XPuzzle(initStt)
-# # print(x.slideDown())  
-# # print(x.slideUp())
-# # print(x.slideRight())
-# # print(x.wrappingSlide())
+# print(x.slideDown())  
+# print(x.slideUp())
+# print(x.slideRight())
+# print(x.wrappingSlide())
 # matrix, movedTile = x.slideUp()
 # matrix, movedTile = x.diagonalSlideInside()
 # print(matrix)
