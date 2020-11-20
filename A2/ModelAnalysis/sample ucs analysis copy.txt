@@ -1,0 +1,17 @@
+Data For Solution Path:
+
+total solution path:
+10
+
+avrage solution path:
+3.3333333333333335
+total no solution :
+2
+total no solution :
+0.6666666666666666
+
+total execution time:
+145.4577944278717
+
+average execution path:
+1757.3333333333333
