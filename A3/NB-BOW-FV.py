@@ -42,6 +42,21 @@ testRev = []
 for i in range(testSize):
     testRev.append(textToWords(testData.text[i]))
 
+oneSentence= ""
+for w in trainRev:
+    oneSentence = oneSentence + w
+seq = oneSentence.split()
+print(str(len(oneSentence)) +"\n")
+for word in seq:
+    if oneSentence.count(word) == 1:
+        for i in range(2,401):
+            sentence = trainRev[i]
+            if word in sentence:
+                temp = sentence.replace(word, '')
+                trainRev[i] = temp
+    else:
+        pass
+
 # creating a function, vectorizer to convert the words into vectors
 vectorizer = CountVectorizer(analyzer="word",
                             preprocessor=None,
